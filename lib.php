@@ -496,7 +496,7 @@ function head($body = '', $scriptfile = '') {
 <head>
 	<title><?= e($setup['title']) ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel=StyleSheet HREF=<?= $stylefile ?> type=text/css title=style>
+	<link rel=StyleSheet HREF="<?= e($stylefile) ?>" type=text/css title=style>
 	<?php if ($setup['use_formmail']) echo $zbLayerScript; ?>
 	<?php if ($scriptfile) include "script/" . $scriptfile; ?>
 </head>
