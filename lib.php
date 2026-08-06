@@ -99,7 +99,8 @@ if (file_exists(_ZB_PATH . 'config.php') && !preg_match('/install/i', Request::s
 
         // 로그인 시간이 지정된 시간을 넘었거나 로그인 아이피가 현재 사용자의 아이피와 다를 경우 로그아웃 시킴
         if (time() - (int) Session::get('zb_logged_time', 0) > $_zbDefaultSetup['login_time']
-            || Session::get('zb_logged_ip') !== Request::clientIp()) {
+            || Session::get('zb_logged_ip') !== Request::clientIp()
+        ) {
             Session::destroy();
             Session::start();
 
@@ -118,7 +119,8 @@ if (file_exists(_ZB_PATH . 'config.php') && !preg_match('/install/i', Request::s
         $_zb_now_check_intervalTime = time() - (int) Session::get('zb_last_connect_check', 0);
 
         if (!Session::get('zb_last_connect_check')
-        	|| $_zb_now_check_intervalTime > $_zbDefaultSetup['nowconnect_refresh_time']) {
+        	|| $_zb_now_check_intervalTime > $_zbDefaultSetup['nowconnect_refresh_time']
+        ) {
 
             Session::set('zb_last_connect_check', time());
 
@@ -841,7 +843,7 @@ function getZBSessionID() {
 
     $newZBSessionID = hash('sha256', $data['no'] . "-^A-" . $data['time'] . $data['key']);
 
-    if ($newZBSessionID !== $zbSessionID) {
+    if (!hash_equals($newZBSessionID, $zbSessionID)) {
         Response::removeCookie('ZBSESSIONID');
         return '';
     }
@@ -979,7 +981,7 @@ function check_jumin($jumin) {
     $len = strlen($jumin);
     $sum = 0;
 
-    if ($len <> 13) return false;
+    if ($len != 13) return false;
 
     for ($i = 0; $i < 12; $i++) {
         $sum = $sum + ((int) substr($jumin, $i, 1) * (int) substr($weight, $i, 1));
@@ -993,7 +995,7 @@ function check_jumin($jumin) {
 
     $ju13 = (int) substr($jumin, 12, 1);
 
-    if ($result <> $ju13) return false;
+    if ($result != $ju13) return false;
 
     return true;
 }
@@ -1075,18 +1077,18 @@ function cut_str(string $msg, int $cut_size): string {
         }
 
         $wide =
-        	($cp >= 0x1100 && $cp <= 0x115F) ||
-        	($cp >= 0x2E80 && $cp <= 0x303E) ||
-        	($cp >= 0x3041 && $cp <= 0x33FF) ||
-        	($cp >= 0x3400 && $cp <= 0x4DBF) ||
-        	($cp >= 0x4E00 && $cp <= 0x9FFF) ||
-        	($cp >= 0xA000 && $cp <= 0xA4CF) ||
-        	($cp >= 0xAC00 && $cp <= 0xD7A3) ||
-        	($cp >= 0xF900 && $cp <= 0xFAFF) ||
-        	($cp >= 0xFE30 && $cp <= 0xFE4F) ||
-        	($cp >= 0xFF00 && $cp <= 0xFF60) ||
-        	($cp >= 0xFFE0 && $cp <= 0xFFE6) ||
-        	($cp >= 0x20000 && $cp <= 0x3FFFD);
+        	($cp >= 0x1100 && $cp <= 0x115F)
+        	|| ($cp >= 0x2E80 && $cp <= 0x303E)
+        	|| ($cp >= 0x3041 && $cp <= 0x33FF)
+        	|| ($cp >= 0x3400 && $cp <= 0x4DBF)
+        	|| ($cp >= 0x4E00 && $cp <= 0x9FFF)
+        	|| ($cp >= 0xA000 && $cp <= 0xA4CF)
+        	|| ($cp >= 0xAC00 && $cp <= 0xD7A3)
+        	|| ($cp >= 0xF900 && $cp <= 0xFAFF)
+        	|| ($cp >= 0xFE30 && $cp <= 0xFE4F)
+        	|| ($cp >= 0xFF00 && $cp <= 0xFF60)
+        	|| ($cp >= 0xFFE0 && $cp <= 0xFFE6)
+        	|| ($cp >= 0x20000 && $cp <= 0x3FFFD);
 
         $w = $wide ? 2 : 1;
         if ($width + $w > $cut_size) return $out . '...';
@@ -1291,7 +1293,8 @@ function isValidIncludePath(string $path): bool {
     if (strpos($path, '://') !== false
     	|| strpos($path, "\0") !== false
     	|| preg_match('#^data:#i', $path)
-    	|| (DIRECTORY_SEPARATOR == '\\' && preg_match('#^(//|\\\\\\\\)#', $path))) return false;
+    	|| (DIRECTORY_SEPARATOR == '\\' && preg_match('#^(//|\\\\\\\\)#', $path))
+    ) return false;
 
     if (!is_file($path) || !is_readable($path)) return false;
 
@@ -1318,16 +1321,58 @@ function createHash(string $plain): string {
 }
 
 function verifyHash(string $plain, string $hash): bool {
+    if (preg_match('/^\*[A-F0-9]{40}$/', $hash)) {
+        return hash_equals($hash, createMysqlHash($plain));
+
+    } elseif (preg_match('/^[a-f0-9]{16}$/', $hash)) {
+        return hash_equals($hash, createMysqlHash($plain, true));
+    }
+
     return password_verify($plain, $hash);
 }
 
 function needsRehash(string $hash): bool {
+    if (preg_match('/^\*[A-F0-9]{40}$/', $hash)
+        || preg_match('/^[a-f0-9]{16}$/', $hash)
+    ) return true;
+
     return password_needs_rehash($hash, PASSWORD_DEFAULT);
+}
+
+function createMysqlHash(string $plain, bool $useOldAlgorithm = false): string {
+    if (!$useOldAlgorithm) return '*' . strtoupper(sha1(sha1($plain, true)));
+
+    $nr = 1345345333;
+    $add = 7;
+    $nr2 = 0x12345671;
+
+    $len = strlen($plain);
+    for ($i = 0; $i < $len; $i++) {
+        $c = ord($plain[$i]);
+        if ($c === 32 || $c === 9) { // space or tab
+            continue;
+        }
+
+        $nr ^= ((($nr & 63) + $add) * $c) + ($nr << 8);
+        $nr &= 0xFFFFFFFF;
+
+        $nr2 += ($nr2 << 8) ^ $nr;
+        $nr2 &= 0xFFFFFFFF;
+
+        $add += $c;
+        $add &= 0xFFFFFFFF;
+    }
+
+    $nr &= 0x7FFFFFFF;
+    $nr2 &= 0x7FFFFFFF;
+
+    return sprintf('%08x%08x', $nr, $nr2);
 }
 
 function createIndexFile(string $path, string $fileName = 'index.php'): bool {
     if ($fileName === '' || $fileName === '.' || $fileName === '..'
-        || $fileName !== basename($fileName)) {
+        || $fileName !== basename($fileName)
+    ) {
         throw new InvalidArgumentException('Filename must not contain path components');
     }
     $filePath = $path . DIRECTORY_SEPARATOR . $fileName;
