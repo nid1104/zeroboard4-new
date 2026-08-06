@@ -684,7 +684,7 @@ function error($message, $url = '') {
     } else {
 
         $url = e_js($url);
-        $message = str_replace(['&lt;br&gt;', '&lt;b&gt;', '&lt;/b&gt;'], ['<br>', '<b>', '</b>'], e($message));
+        $message = str_replace(['&lt;br&gt;', '&lt;b&gt;', '&lt;/b&gt;'], ['<br>', '<b>', '</b>'], del_html($message));
         
         head();
 
