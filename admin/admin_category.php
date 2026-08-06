@@ -45,7 +45,7 @@ $total_category = count($result);
     <td><input type=checkbox name=c[] value=<?= e($data['no']) ?>></td>
     <td><img src=images/t.gif height=3><br><?= e($data['name']) ?></td>
     <td style=font-family:Tahoma;font-size:8pt><?= e($total_num) ?></td>
-    <?= "<td style=font-family:Tahoma;font-size:8pt><a href=" . Request::scriptName() . "?exec=view_board&no=$no&exec2=modify_category&group_no=$group_no&page=$page&page_num=$page_num&category_no=$data[no]>Modify</a></td>" ?>
+    <?= "<td style=font-family:Tahoma;font-size:8pt><a href=" . Request::scriptName() . "?exec=view_board&no=" . e($no) . "&exec2=modify_category&group_no=" . e($group_no) . "&page=" . e($page) . "&page_num=" . e($page_num) . "&category_no=" . e($data['no']) . ">Modify</a></td>" ?>
     <td style=font-family:Tahoma;font-size:8pt>
 <?php
         if (!$total_num && $total_category > 1)
@@ -64,7 +64,7 @@ $total_category = count($result);
   $temp2 = $connect->all("select * from {$t_category}_{$table_data['name']} order by no desc");
 foreach ($temp2 as $data2)
 {
-    echo "<option value=$data2[no]>$data2[name]</option>";
+    echo '<option value="' . e($data2['no']) . '">' . e($data2['name']) . '</option>';
 }
 ?>
   </select></td><td>

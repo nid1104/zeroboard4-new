@@ -107,19 +107,13 @@ function zbDB_All_down($dbname) {
 }
 
 function zbDB_Header($filename) {
-    if (preg_match("/msie/i", Request::header('User-Agent'))) $browser = 1;
-    else $browser = 0;
+    $fallback = addcslashes($filename, '"\\');
+    $encoded = rawurlencode($filename);
 
     Response::header("Content-Type", "application/octet-stream");
-    if ($browser) {
-        Response::header("Content-Disposition", "attachment; filename=\"{$filename}\"");
-        Response::header("Expires", "0");
-        Response::header('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
-        Response::header('Pragma', 'public');
-    } else {
-        Response::header("Content-Disposition", "attachment; filename=\"{$filename}\"");
-        Response::header("Expires", "0");
-        Response::header("Pragma", "public");
-    }
+    Response::header("Content-Disposition", 'attachment; filename="' . $fallback . '"; filename*=UTF-8\'\'' . $encoded);
+    Response::header("Expires", "0");
+    Response::header('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
+    Response::header('Pragma', 'public');
 }
 ?>

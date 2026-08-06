@@ -38,7 +38,7 @@ $divpage = (int) Request::req('divpage');
 $prev_num = (int) Request::req('prev_num');
 $select_arrange = preg_replace('/\W/', '', Request::req('select_arrange'));
 $desc = preg_replace('/\W/', '', Request::req('desc'));
-$category = Request::req('category');
+$category = (int) Request::req('category');
 $keyword = Request::req('keyword');
 $sn = Request::req('sn');
 $ss = Request::req('ss');
@@ -138,8 +138,8 @@ if ($_zboardis) {
             $category_n_c[] = $data['num'];
             $category_data[$data['no']] = $data['name'];
             $_category_data[$data['no']] = $data['num'];
-            if ($category == $data['no']) $a_category .= "<option value={$data['no']} selected>{$data['name']}</option>";
-            else $a_category .= "<option value={$data['no']}>{$data['name']}</option>";
+            if ($category == $data['no']) $a_category .= '<option value="' . e($data['no']) . '" selected>' . e($data['name']) . '</option>';
+            else $a_category .= '<option value="' . e($data['no']) . '">' . e($data['name']) . '</option>';
         }
         $a_category .= "</select>";
     } else {

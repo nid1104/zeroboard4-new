@@ -25,6 +25,7 @@ $_dbTime = $_skinTime = $_listCheckTime = $_queryTime = 0.0;
 $_zbResizeCheck = false;
 $zbLayer = '';
 $total_connect = $total_member_connect = $total_guest_connect = '';
+$browser = 1;
 
 if (is_file(__DIR__ . '/config.php')) {
     // config.php 파일은 존재하지만 읽기 권한이 없는 비정상적인 경우에 대한 검사
@@ -150,11 +151,6 @@ if (Session::isActive()) {
         return zb_csrf_process_output($buffer, $__csrf_token, $__csrf_host);
     });
 }
-
-
-// 익스와 넷스케이프일때 처리
-if (preg_match('/msie/i', Request::header('User-Agent'))) $browser = '1';
-else $browser = '0';
 
 
 // DB가 설정이 되었는지를 검사

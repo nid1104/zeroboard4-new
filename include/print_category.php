@@ -14,7 +14,7 @@ if ($setup['use_category']) {
 
     for ($i = 0; $i < count($category_num_c); $i++) {
         if ($category == $category_num_c[$i]) $b = "<b>"; else $b = "";
-        $print_category_data = "<a href='zboard.php?category=$category_num_c[$i]$c_href$c_sort'>$b$category_name_c[$i] ($category_n_c[$i])</a></b>";
+        $print_category_data = "<a href='zboard.php?category=$category_num_c[$i]$c_href$c_sort'>$b" . e($category_name_c[$i]) . " ($category_n_c[$i])</a></b>";
         include "$dir/category_main.php";
     }
 
