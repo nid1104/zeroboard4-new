@@ -381,7 +381,7 @@ echo "<div align=center><br>";
   <tr align=right height=28>
      <td style=font-family:Tahoma;font-size:8pt;>Photo&nbsp;</td>
      <td align=left>&nbsp;<input type=file name=picture size=35 maxlength=255 style=border-color:#d8b3b3 class=input>
-                 <?php if ($member['picture']) echo "<br>&nbsp;<img src='$member[picture]' border=0>"; ?>
+                 <?php if ($member['picture']) echo "<br>&nbsp;<img src='" . e($member['picture']) . "' border=0>"; ?>
                           <input type=checkbox value=1 name=open_picture checked> 공개
      </td>
   </tr>        <tr>

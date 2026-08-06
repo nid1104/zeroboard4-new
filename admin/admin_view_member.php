@@ -237,7 +237,7 @@ $number = $total - ($page - 1) * $page_num;
        <td width=20>&nbsp;</td>
        <td><img src=images/t.gif height=1><br><select name=movelevel>
   <?php
-  $select = array_fill(0, 11, '');
+$select = array_fill(0, 11, '');
 $select[0] = " selected ";
 for ($i = 1; $i <= 10; $i++)
     echo "<option value=$i $select[$i]>$i Level</option>"; ?></select></td><td><input type=button value='레벨변경' style=border-color:#b0b0b0;background-color:#3d3d3d;color:#ffffff;font-size:8pt;font-family:Tahoma;height:20px; onclick=move_all()>
@@ -289,7 +289,7 @@ for ($i = 1; $i <= 10; $i++)
   		<select name=level_search>
   			<option>레벨검색</option>
 <?php
-	$check = array_fill(0, 11, '');
+$check = array_fill(0, 11, '');
 $check[$level_search] = "selected";
 for ($i = 1; $i <= 10; $i++) echo "<option value=$i $check[$i]>$i Level</option>";
 ?>

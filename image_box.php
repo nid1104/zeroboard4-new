@@ -298,12 +298,12 @@ function alignset(str) {
 
 	<table border=0 width=98% cellspacing=0 cellpadding=2>
 <?php
-	$_t_width = (int)(100 / $h_num);
+$_t_width = (int)(100 / $h_num);
 for ($i = 0; $i < $h_num; $i++) echo "<col width=$_t_width" . "%></col>";
 ?>
 
 <?php
-	$_x = 1;
+$_x = 1;
 
 $startNum = ($image_page - 1) * $listnum;
 $endNum = $startNum + $listnum;

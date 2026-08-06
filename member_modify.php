@@ -290,7 +290,7 @@ head();
   <tr height=28 align=right>
      <td style=font-family:Tahoma;font-size:8pt;>Photo</td>
      <td align=left>&nbsp;<input type=file name=picture size=34 maxlength=255 style=border-color:#d8b3b3 class=input>
-                 <?php if ($member['picture']) echo "<br>&nbsp;<img src='$member[picture]' border=0> <input type=checkbox name=del_picture value=1> 삭제"; ?>
+                 <?php if ($member['picture']) echo "<br>&nbsp;<img src='" . e($member['picture']) . "' border=0> <input type=checkbox name=del_picture value=1> 삭제"; ?>
                           <input type=checkbox value=1 name=open_picture <?= $member['open_picture'] ? "checked" : "" ?>> 공개
                           
      </td>

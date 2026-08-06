@@ -150,7 +150,7 @@ if ($member_data['is_admin'] > 2)
 <?php
 foreach ($board_list as $board_data_list)
 {
-    if (!preg_match('/' . preg_quote($board_data_list['no'], '/') . ',/i', $member_data['board_name'])) echo "<option value='$board_data_list[no]'>$board_data_list[name]</option>";
+    if (!preg_match('/,' . preg_quote($board_data_list['no'], '/') . ',/i', $member_data['board_name'])) echo "<option value='" . e($board_data_list['no']) . "'>" . e($board_data_list['name']) . "</option>";
 }
     ?>
      </select> <input type=button value="게시판 관리 권한 추가" onclick="add_board_manager()" style=border-color:#b0b0b0;background-color:#3d3d3d;color:#ffffff;font-size:8pt;font-family:Tahoma;height:20px;>

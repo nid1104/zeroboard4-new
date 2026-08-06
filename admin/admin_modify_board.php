@@ -62,8 +62,8 @@ if (!$data['memo_num']) $data['memo_num'] = 20;
   <td align=right style=font-family:Tahoma;font-size:8pt;><b>스킨 &nbsp;</td>
   <td >&nbsp;&nbsp; <select name=skinname>
 <?php
- // /skin 디렉토리에서 디렉토리를 구함
- $skin_dir = "skin";
+// /skin 디렉토리에서 디렉토리를 구함
+$skin_dir = "skin";
 $handle = opendir($skin_dir);
 while (($skin_info = readdir($handle)) !== false)
 {
