@@ -34,7 +34,7 @@ function check_view() {
 <tr>
   <td><br>
     <img src=images/inst_step1.gif>
-    <textarea cols=90 rows=15 readonly><?php if (is_file(__DIR__ . '/license.txt') && is_readable(__DIR__ . '/license.txt')) echo e(file_get_contents(__DIR__ . '/license.txt')); ?></textarea>
+    <textarea cols=90 rows=15 readonly><?= e(zReadFile(__DIR__ . '/license.txt')) ?></textarea>
 	<br>
 	<input type=checkbox name=accept value=1 onclick="return check_view()"> 위의 라이센스를 모두 읽었으며 동의합니다
   </td>

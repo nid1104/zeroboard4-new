@@ -370,7 +370,7 @@ function check2()
 <tr height=25 bgcolor=#e0e0e0>
   <td align=right style=font-family:Tahoma;font-size:8pt;><b>불량단어 등록&nbsp;</td>
   <td >&nbsp;&nbsp;
-     <textarea name=filter cols=70 rows=6 class=textarea style=border-color:#b0b0b0><?= e(file_get_contents("admin/base_filter.txt")) ?></textarea><br> &nbsp;&nbsp;
+     <textarea name=filter cols=70 rows=6 class=textarea style=border-color:#b0b0b0><?= e(zReadFile("admin/base_filter.txt")) ?></textarea><br> &nbsp;&nbsp;
      불량단어 필터링 목록입니다. <b>, (콤마)</b> 로 연결하세요
   </td>
 </tr>
@@ -378,7 +378,7 @@ function check2()
 <tr height=25 bgcolor=#e0e0e0>
   <td align=right style=font-family:Tahoma;font-size:8pt;><b>허용할 HTML 태그&nbsp;</td>
   <td >&nbsp;&nbsp;
-     <textarea name=avoid_tag cols=70 rows=6 class=textarea style=border-color:#b0b0b0><?= e(file_get_contents("admin/base_avoid_tag.txt")) ?></textarea><br> &nbsp;&nbsp; HTML을 부분허용했을때 허용하여 주는 태그입니다.<br>
+     <textarea name=avoid_tag cols=70 rows=6 class=textarea style=border-color:#b0b0b0><?= e(zReadFile("admin/base_avoid_tag.txt")) ?></textarea><br> &nbsp;&nbsp; HTML을 부분허용했을때 허용하여 주는 태그입니다.<br>
        &nbsp;&nbsp; &lt;,&gt;를 태그 이름만을 입력하세요.<br>
        &nbsp;&nbsp; <b>, (콤마)</b> 로 연결하세요
   </td>
