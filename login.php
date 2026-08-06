@@ -33,8 +33,8 @@ if ($id) {
 
     // 현재 게시판의 그룹의 설정 읽어 오기
     $group = group_info($setup['group_no']);
-    $dir = "skin/" . $setup['skinname'];
-    $file = "skin/" . $setup['skinname'] . "/login.php";
+    $dir = "skin/" . sanitizePathComponent($setup['skinname']);
+    $file = "skin/" . sanitizePathComponent($setup['skinname']) . "/login.php";
 
 } else {
     if ($group_no) $group = $connect->row("SELECT * FROM {$group_table} WHERE no = ?", [$group_no]);

@@ -120,7 +120,7 @@ if ($_zboardis) {
     if ($is_admin) $setup['use_cart'] = 1;
 
     // 스킨 디렉토리 : $dir 이라는 변수는 계속해서 스킨경로 파일로
-    $dir = "skin/" . $setup['skinname'];
+    $dir = "skin/" . sanitizePathComponent($setup['skinname']);
 
     // 게시판의 가로크기 설정
     $width = $setup['table_width'];

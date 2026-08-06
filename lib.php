@@ -484,7 +484,7 @@ function head($body = '', $scriptfile = '') {
 
     echo "<!--\n" . $license . "\n-->\n";
 
-    if (!preg_match('/member_/i', Request::scriptName())) $stylefile = "skin/{$setup['skinname']}/style.css";
+    if (!preg_match('/member_/i', Request::scriptName())) $stylefile = "skin/" . sanitizePathComponent($setup['skinname']) . "/style.css";
     else $stylefile = 'style.css';
 
     if ($setup['use_formmail']) $zbLayerScript = zReadFile(__DIR__ . '/script/script_zbLayer.php');
@@ -545,7 +545,7 @@ function foot() {
     $group += array('footer' => '', 'footer_url' => '');
     if (!isset($width)) $width = '';
 
-    $maker_file_name = "skin/{$setup['skinname']}/maker.txt";
+    $maker_file_name = "skin/" . sanitizePathComponent($setup['skinname']) . "/maker.txt";
 
     if (is_file($maker_file_name) && is_readable($maker_file_name)) $maker_file = file($maker_file_name);
     else $maker_file = array();
@@ -671,7 +671,7 @@ function error($message, $url = '') {
     if (!is_array($setup)) $setup = array();
     $setup += array('skinname' => '');
 
-    $dir = "skin/" . $setup['skinname'];
+    $dir = "skin/" . sanitizePathComponent($setup['skinname']);
 
     if ($url === "window.close") {
         $message = str_replace('<br>', "\n", $message);
@@ -688,8 +688,12 @@ function error($message, $url = '') {
         
         head();
 
-        if ($setup['skinname']) {
-            include "skin/{$setup['skinname']}/error.php";
+        $skinErrorFile = "skin/" . sanitizePathComponent($setup['skinname']) . "/error.php";
+        if ($setup['skinname']
+            && is_file($skinErrorFile)
+            && is_readable($skinErrorFile)
+        ) {
+            include $skinErrorFile;
         } else {
             include _ZB_PATH . "error.php";
         }
@@ -1380,6 +1384,17 @@ function createIndexFile(string $path, string $fileName = 'index.php'): bool {
     if (!is_dir($path) || !is_writable($path) || file_exists($filePath)) return false;
 
     return touch($filePath);
+}
+
+function sanitizePathComponent(string $name, string $fallback = 'default'): string {
+    $name = str_replace("\0", '', $name);
+    $name = basename($name);
+
+    if ($name === '' || $name === '.' || $name === '..') {
+        $name = $fallback;
+    }
+
+    return $name;
 }
 
 if (!function_exists('mb_strlen')) {

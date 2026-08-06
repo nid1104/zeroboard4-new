@@ -81,7 +81,7 @@ list_check($data, 1);
 <head>
 	<title><?= e($setup['title']) ?></title>
 	<meta http-equiv=Content-Type content=text/html; charset=UTF-8>
-	<link rel=StyleSheet HREF=skin/<?= e($setup['skinname']) ?>/style.css type=text/css title=style>
+	<link rel=StyleSheet HREF="skin/<?= e(sanitizePathComponent($setup['skinname'])) ?>/style.css" type=text/css title=style>
 </head>
 <body topmargin='10'  leftmargin='10' marginwidth='10' marginheight='10' <?php
 	if ($setup['bg_color']) echo " bgcolor=" . e($setup['bg_color']);
