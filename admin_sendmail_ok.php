@@ -1,20 +1,5 @@
 <?php
 require_once __DIR__ . '/lib.php';
-$connect = dbConn();
-
-set_time_limit(0);
-
-function thisError($message) {
-    print ("<script>\nalert('$message');\nwindow.close();\n</script>\n");
-    exit();
-}
-
-$member = member_info();
-if (!$member['no']) thisError("로그인후 사용하여주십시요");
-
-if ($member['is_admin'] > 3 || $member['is_admin'] < 1) thisError("관리자페이지를 사용할수 있는 권한이 없습니다");
-
-check_csrf();
 
 $s_comment = Request::req('s_comment');
 $comment = Request::req('comment');
@@ -33,6 +18,24 @@ $totalpage = (int) Request::req('totalpage');
 $cart = Request::post('cart');
 $html = Request::req('html');
 $target_srls = array();
+
+$connect = dbConn();
+
+set_time_limit(0);
+
+function thisError($message) {
+    print ("<script>\nalert('$message');\nwindow.close();\n</script>\n");
+    exit();
+}
+
+$member = member_info();
+if (!$member['no']) thisError("로그인후 사용하여주십시요");
+
+if ((int) $member['is_admin'] !== 1 && (int) $member['is_admin'] !== 2) thisError("관리자페이지를 사용할수 있는 권한이 없습니다");
+if ((int) $member['is_admin'] === 2 && (int) $member['group_no'] !== $group_no) thisError("해당 그룹을 관리할 권한이 없습니다");
+
+check_csrf();
+
 
 if ($s_comment) $comment = $s_comment;
 else $s_comment = $comment;
@@ -91,7 +94,7 @@ head( "onload=window.resizeTo(550,420); bgcolor=white");
 		메일 발송 페이지 : <?= e($page) ?> / <?= e($totalpage) ?><br>
 
 <?php
-	$fault = 0;
+$fault = 0;
 $i = 1;
 foreach ($result as $data) {
     if ($data['mailing']) {
