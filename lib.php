@@ -1174,6 +1174,7 @@ function get_dirinfo($path) {
 
 // 파일을 삭제하는 함수
 function z_unlink(string $filename): bool {
+    if (strpos($filename, '://') !== false || stripos($filename, 'data:') === 0) return false;
 
     $filename = realpath($filename);
     if ($filename === false) return false;
@@ -1185,6 +1186,8 @@ function z_unlink(string $filename): bool {
 
 // 지정된 파일의 내용을 읽어옴
 function zReadFile(string $filename): string {
+    if (strpos($filename, '://') !== false || stripos($filename, 'data:') === 0) return '';
+
     if (!is_file($filename) || !is_readable($filename)) return '';
 
     $str = file_get_contents($filename);
@@ -1194,6 +1197,8 @@ function zReadFile(string $filename): string {
 
 // 지정된 파일에 주어진 데이타를 씀
 function zWriteFile(string $filename, string $str) {
+    if (strpos($filename, '://') !== false || stripos($filename, 'data:') === 0) return;
+
     $dir = realpath(dirname($filename));
     if ($dir === false) return;
 
@@ -1216,6 +1221,8 @@ function zWriteFile(string $filename, string $str) {
 
 // 지정된 파일이 Locking중인지 검사
 function check_fileislocked($filename) {
+    if (strpos($filename, '://') !== false || stripos($filename, 'data:') === 0) return;
+
     $f = @fopen($filename, 'w');
     $count = 0;
     $break = true;
@@ -1232,6 +1239,8 @@ function check_fileislocked($filename) {
 
 // 순환적으로 디렉토리를 삭제
 function zRmDir($path) {
+    if (strpos($path, '://') !== false || stripos($path, 'data:') === 0) return;
+
     if (!is_dir($path) || !is_readable($path) || !is_writable($path)) return;
 
     $directory = dir($path);
@@ -1292,7 +1301,7 @@ function isValidIncludePath(string $path): bool {
 
     if (strpos($path, '://') !== false
     	|| strpos($path, "\0") !== false
-    	|| preg_match('#^data:#i', $path)
+    	|| stripos($path, 'data:') === 0
     	|| (DIRECTORY_SEPARATOR == '\\' && preg_match('#^(//|\\\\\\\\)#', $path))
     ) return false;
 
