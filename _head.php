@@ -150,7 +150,7 @@ if ($_zboardis) {
     /////////////////////////////////////////////
     // write.php가 아닐때 검색개수 및 query 정리
     /////////////////////////////////////////////
-    if (strtolower(basename(Request::scriptName()) !== 'write.php')) {
+    if (strtolower(basename(Request::scriptName())) !== 'write.php') {
 
         // Division의 현황을 체크
         $_dbTimeStart = getmicrotime();
