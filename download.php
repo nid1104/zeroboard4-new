@@ -20,15 +20,13 @@ if ($setup['grant_view'] < $member['level'] && !$is_admin) Error("사용권한�
 
 if ($filenum !== 1 && $filenum !== 2) Error('선택하신 파일이 존재하지 않습니다');
 
-// 현재글의 Download 수를 올림;;
-if ($filenum == 1) {
-    $connect->exec("UPDATE `{$t_board}_{$id}` SET download1 = download1 + 1 WHERE no = ?", [$no]);
-} else {
-    $connect->exec("UPDATE `{$t_board}_{$id}` SET download2 = download2 + 1 WHERE no = ?", [$no]);
-}
-
 $data = $connect->row("SELECT * FROM `{$t_board}_{$id}` WHERE no = ?", [$no]);
+
 if (empty($data)) Error('선택하신 게시물이 존재하지 않습니다');
+
+if ($data['is_secret'] && !$is_admin && $data['ismember'] != $member['no'] && $member['level'] > $setup['grant_view_secret']) {
+    error("비밀글을 열람할 권한이 없습니다");
+}
 
 // 다운로드;;
 $filename = $data["file_name" . $filenum];
@@ -40,6 +38,13 @@ $real = realpath($filename);
 $base = realpath(_ZB_PATH . 'data/') . DIRECTORY_SEPARATOR;
 
 if ($real === false || $base === false || strpos($real, $base) !== 0) Error('선택하신 파일이 존재하지 않습니다');
+
+// 현재글의 Download 수를 올림;;
+if ($filenum == 1) {
+    $connect->exec("UPDATE `{$t_board}_{$id}` SET download1 = download1 + 1 WHERE no = ?", [$no]);
+} elseif ($filenum == 2) {
+    $connect->exec("UPDATE `{$t_board}_{$id}` SET download2 = download2 + 1 WHERE no = ?", [$no]);
+}
 
 $fallback = addcslashes($s_filename, '"\\');
 $encoded = rawurlencode($s_filename);
