@@ -24,7 +24,7 @@ $data = $connect->row("SELECT * FROM `{$t_board}_{$id}` WHERE no = ?", [$no]);
 
 if (empty($data)) Error('선택하신 게시물이 존재하지 않습니다');
 
-if ($data['is_secret'] && !$is_admin && $data['ismember'] != $member['no'] && $member['level'] > $setup['grant_view_secret']) {
+if ($data['is_secret'] && !$is_admin && $data['ismember'] != $member['no'] && $member['level'] > $setup['grant_view_secret'] && Session::get('zb_s_check', '') !== $setup['no'] . "_" . $no) {
     error("비밀글을 열람할 권한이 없습니다");
 }
 
