@@ -186,7 +186,7 @@ head("bgcolor=white");
         </tr>
         <tr>
           <td align="right" valign="top">&nbsp;</td>
-          <td><a href=<?= Request::scriptName() ?>?exec=del&no=<?= e($no) ?>&page=<?= e($page) ?>&zb_csrf_token=<?= Session::csrfToken() ?> onclick="return confirm('삭제하시겠습니까?')"><img src="images/memo_delete2.gif" width="31" height="15" border=0></a> <a href=<?= Request::scriptName() ?>><img src="images/memo_list.gif" width="18" height="15" border=0></a> </td>
+          <td><a href="<?= Request::scriptName() ?>?exec=del&no=<?= e($no) ?>&page=<?= e($page) ?>&zb_csrf_token=<?= Session::csrfToken() ?>" onclick="return confirm('삭제하시겠습니까?')"><img src="images/memo_delete2.gif" width="31" height="15" border=0></a> <a href=<?= Request::scriptName() ?>><img src="images/memo_list.gif" width="18" height="15" border=0></a> </td>
         </tr>
       </table>
     </td>
@@ -214,9 +214,9 @@ head("bgcolor=white");
 </table>
 <table border=0 width=100% cellpadding=0 cellspacing=0>
 <tr>
-<form name=list method=post action=<?= Request::scriptName() ?> onsubmit="return confirm('삭제하시겠습니까?')">
-<input type=hidden name=exec value=del_all>
-<input type=hidden name=page value=<?= e($page) ?>>
+<form name=list method=post action="<?= Request::scriptName() ?>" onsubmit="return confirm('삭제하시겠습니까?')">
+<input type=hidden name=exec value="del_all">
+<input type=hidden name=page value="<?= e($page) ?>">
 <td>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>

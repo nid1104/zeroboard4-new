@@ -25,9 +25,9 @@ $check_use_icon[$data['use_icon'] ?? ''] = "checked";
   }
 </script>
 <table border=0 cellspacing=1 cellpadding=3 width=100% bgcolor=#b0b0b0>
-<form name=write method=post action=<?= Request::scriptName() ?> enctype=multipart/form-data onsubmit="return check_submit();">
-<input type=hidden name=exec value=modify_group_ok>
-<input type=hidden name=group_no value=<?= e($group_no) ?>>
+<form name=write method=post action="<?= Request::scriptName() ?>" enctype=multipart/form-data onsubmit="return check_submit();">
+<input type=hidden name=exec value="modify_group_ok">
+<input type=hidden name=group_no value="<?= e($group_no) ?>">
   <tr height=30><td bgcolor=#3d3d3d colspan=2><img src=images/admin_editgroup.gif></td></tr>
   <tr height=1><td bgcolor=#000000 style=padding:0px; colspan=2><img src=images/t.gif height=1></td></tr>
 

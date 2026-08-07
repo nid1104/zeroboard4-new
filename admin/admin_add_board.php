@@ -51,12 +51,12 @@ $data += array(
 <tr bgcolor=bbbbbb height=30>
    <td align=right colspan=8 height=25 colspan=2 style=font-family:Tahoma;font-size:8pt;>
     그룹 이름 : <b><?= e($group_data['name']) ?></b>&nbsp;&nbsp;&nbsp;</td>
-<form method=post action=<?= Request::scriptName() ?> name=write onsubmit="return check_submit();">
-<input type=hidden name=no value=<?= e($data['no']) ?>>
-<input type=hidden name=exec value=view_board>
-<input type=hidden name=exec2 value=<?= $no ? "modify_ok" : "add_ok" ?>>
-<input type=hidden name=page value=<?= e($page) ?>>
-<input type=hidden name=group_no value=<?= e($group_no) ?>>
+<form method=post action="<?= Request::scriptName() ?>" name=write onsubmit="return check_submit();">
+<input type=hidden name=no value="<?= e($data['no']) ?>">
+<input type=hidden name=exec value="view_board">
+<input type=hidden name=exec2 value="<?= $no ? "modify_ok" : "add_ok" ?>">
+<input type=hidden name=page value="<?= e($page) ?>">
+<input type=hidden name=group_no value="<?= e($group_no) ?>">
 </tr>
 <!-- 기본설정 -->
 <tr height=25 bgcolor=#e0e0e0>

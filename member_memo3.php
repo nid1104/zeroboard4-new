@@ -152,8 +152,8 @@ head("bgcolor=white");
 </script>
 
 <table border=0 cellspacing=0 cellpadding=0 width=100%>
-<form method=post action=<?= Request::scriptName() ?> name=list onsubmit="return check_status()">
-<input type=hidden name=page value=<?= e($page) ?>>
+<form method=post action="<?= Request::scriptName() ?>" name=list onsubmit="return check_status()">
+<input type=hidden name=page value="<?= e($page) ?>">
 <tr align=center height=15>
   <td width=35%><img src=images/memo_level.gif></td>
   <td width=25%><img src=images/memo_id.gif></td>
@@ -168,9 +168,9 @@ foreach ($result as $data) {
     $name = $data['name'];
 
     $temp_name = get_private_icon($data['no'], "2");
-    if ($temp_name) $name = "<img src='$temp_name' border=0 align=absmiddle>";
+    if ($temp_name) $name = "<img src='" . e($temp_name) . "' border=0 align=absmiddle>";
     $temp_name = get_private_icon($data['no'], "1");
-    if ($temp_name) $name = "<img src='$temp_name' border=0 align=absmiddle>&nbsp;" . $name;
+    if ($temp_name) $name = "<img src='" . e($temp_name) . "' border=0 align=absmiddle>&nbsp;" . $name;
     
     if ($name === $data['name']) $name = e($name);
 

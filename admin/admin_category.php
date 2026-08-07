@@ -15,7 +15,7 @@ $total_category = count($result);
 <table border=0 cellspacing=1 cellpadding=3 width=100% bgcolor=#b0b0b0>
   <tr height=30><td bgcolor=#3d3d3d colspan=5><img src=images/admin_webboard.gif></td></tr>
 <Tr height=30><td bgcolor=white colspan=5 align=right style=font-family:Tahoma;font-size:8pt;>
-그룹 이름 : <b><?= e($group_data['name']) ?></b> , 게시판 이름 : <b><a href=zboard.php?id=<?= e($table_data['name']) ?> target=_blank><?= e($table_data['name']) ?></a></b> &nbsp;&nbsp;&nbsp;
+그룹 이름 : <b><?= e($group_data['name']) ?></b> , 게시판 이름 : <b><a href="zboard.php?id=<?= e($table_data['name']) ?>" target=_blank><?= e($table_data['name']) ?></a></b> &nbsp;&nbsp;&nbsp;
     <input type=button value='게시판관리' class=input style=width=100px onclick="location.href='<?= Request::scriptName() ?>?exec=view_board&group_no=<?= e_js($group_no) ?>&exec2=modify&no=<?= e_js($no) ?>&page=<?= e_js($page) ?>&page_num=<?= e_js($page_num) ?>'">
     <input type=button value='권한설정' class=input style=width=100px onclick="location.href='<?= Request::scriptName() ?>?exec=view_board&group_no=<?= e_js($group_no) ?>&exec2=grant&no=<?= e_js($no) ?>&page=<?= e_js($page) ?>&page_num=<?= e_js($page_num) ?>'">
 &nbsp;&nbsp;&nbsp;
@@ -42,14 +42,14 @@ $total_category = count($result);
       ?>
 
   <tr height=23 align=center bgcolor=#e0e0e0>
-    <td><input type=checkbox name=c[] value=<?= e($data['no']) ?>></td>
+    <td><input type=checkbox name=c[] value="<?= e($data['no']) ?>"></td>
     <td><img src=images/t.gif height=3><br><?= e($data['name']) ?></td>
     <td style=font-family:Tahoma;font-size:8pt><?= e($total_num) ?></td>
     <?= "<td style=font-family:Tahoma;font-size:8pt><a href=" . Request::scriptName() . "?exec=view_board&no=" . e($no) . "&exec2=modify_category&group_no=" . e($group_no) . "&page=" . e($page) . "&page_num=" . e($page_num) . "&category_no=" . e($data['no']) . ">Modify</a></td>" ?>
     <td style=font-family:Tahoma;font-size:8pt>
 <?php
         if (!$total_num && $total_category > 1)
-            echo "<a href=" . Request::scriptName() . "?exec=view_board&no=" . e($no) . "&exec2=del_category&group_no=" . e($group_no) . "&page=" . e($page) . "&page_num=" . e($page_num) . "&category_no=" . e($data['no']) . "&zb_csrf_token=" . Session::csrfToken() . " onclick=\"return confirm('삭제하시겠습니까?')\">Delete</a>"; else echo "&nbsp;";
+            echo "<a href='" . Request::scriptName() . "?exec=view_board&no=" . e($no) . "&exec2=del_category&group_no=" . e($group_no) . "&page=" . e($page) . "&page_num=" . e($page_num) . "&category_no=" . e($data['no']) . "&zb_csrf_token=" . Session::csrfToken() . "' onclick=\"return confirm('삭제하시겠습니까?')\">Delete</a>"; else echo "&nbsp;";
       ?>
     </td>
   </tr>
@@ -73,13 +73,13 @@ foreach ($temp2 as $data2)
 </form>
 </tr>
 </table>
-<form method=post action=<?= Request::scriptName() ?>>
-<input type=hidden name=group_no value=<?= e($group_no) ?>>
-<input type=hidden name=exec value=view_board>
-<input type=hidden name=exec2 value=category_add>
-<input type=hidden name=no value=<?= e($no) ?>>
-<input type=hidden name=page value=<?= e($page) ?>>
-<input type=hidden name=page_num value=<?= e($page_num) ?>>
+<form method=post action="<?= Request::scriptName() ?>">
+<input type=hidden name=group_no value="<?= e($group_no) ?>">
+<input type=hidden name=exec value="view_board">
+<input type=hidden name=exec2 value="category_add">
+<input type=hidden name=no value="<?= e($no) ?>">
+<input type=hidden name=page value="<?= e($page) ?>">
+<input type=hidden name=page_num value="<?= e($page_num) ?>">
 <table border=0 cellpadding=2 cellspacing=0>
 <tr><td style=font-size:8pt;font-family:Tahoma;color:#ffffff;font-weight:bold>
       카테고리 추가</td><td><input type=text size=10 name=name></td><td><input type=submit value=' 추가 ' style=border-color:#b0b0b0;background-color:#3d3d3d;color:#ffffff;font-size:8pt;font-family:Tahoma;height:20px;></td></tr></table><br><br>

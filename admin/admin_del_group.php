@@ -19,9 +19,9 @@ foreach ($temp as $temp2)
   <tr height=30><td bgcolor=#3d3d3d colspan=2><img src=images/admin_deletegroup.gif></td></tr>
   <tr height=1><td bgcolor=#000000 style=padding:0px; colspan=2><img src=images/t.gif height=1></td></tr>
 
-<form name=write method=post action=<?= Request::scriptName() ?> enctype=multipart/form-data onsubmit="return confirm('삭제하시겠습니까?')">
-<input type=hidden name=exec value=del_group_ok>
-<input type=hidden name=group_no value=<?= e($group_no) ?>>
+<form name=write method=post action="<?= Request::scriptName() ?>" enctype=multipart/form-data onsubmit="return confirm('삭제하시겠습니까?')">
+<input type=hidden name=exec value="del_group_ok">
+<input type=hidden name=group_no value="<?= e($group_no) ?>">
 
   <tr align=center><td bgcolor=bbbbbb colspan=2 height=25 style=font-family:Tahoma;font-size:8pt;>Group Name : <b><?= e($data['name'])?></b></td></tr>
   <tr align=center><td colspan=2 style=line-height:180%; bgcolor=#e0e0e0><br>

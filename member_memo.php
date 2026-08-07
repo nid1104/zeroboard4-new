@@ -225,9 +225,9 @@ head("bgcolor=white");
 </table>
 <table border=0 width=100% cellpadding=0 cellspacing=0>
 <tr>
-<form method=post name=list action=<?= Request::scriptName() ?> onsubmit="return confirm('삭제하시겠습니까?')">
-<input type=hidden name=exec value=del_all>
-<input type=hidden name=page value=<?= e($page) ?>>
+<form method=post name=list action="<?= Request::scriptName() ?>" onsubmit="return confirm('삭제하시겠습니까?')">
+<input type=hidden name=exec value="del_all">
+<input type=hidden name=page value="<?= e($page) ?>">
 <td>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>

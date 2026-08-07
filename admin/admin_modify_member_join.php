@@ -7,9 +7,9 @@ if (empty($data)) error("지정된 그룹이 존재하지 않습니다");
 <table border=0 cellspacing=1 cellpadding=3 width=100% bgcolor=#b0b0b0>
   <tr height=30><td bgcolor=#3d3d3d colspan=2><img src=images/admin_memberjoin.gif></td></tr>
   <tr height=1><td bgcolor=#000000 style=padding:0px; colspan=2><img src=images/t.gif height=1></td></tr>
-<form name=write method=post action=<?= Request::scriptName() ?>>
-<input type=hidden name=exec value=modify_member_join_ok>
-<input type=hidden name=group_no value=<?= e($group_no) ?>>
+<form name=write method=post action="<?= Request::scriptName() ?>">
+<input type=hidden name=exec value="modify_member_join_ok">
+<input type=hidden name=group_no value="<?= e($group_no) ?>">
   <tr align=center bgcolor=#e0e0e0>
      <td colspan=2 bgcolor=#e0e0e0 style=line-height:180%>
          이 그룹의 회원가입시 나타나는 가입양식을 조절할수 있습니다.<br>
