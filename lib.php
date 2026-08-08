@@ -1428,8 +1428,7 @@ if (!function_exists('mb_strlen')) {
 }
 
 if (!function_exists('ereg')) {
-    function ereg(string $pattern, string $string, ?array &$regs = null)
-    {
+    function ereg(string $pattern, string $string, ?array &$regs = null) {
         $regex = '~' . str_replace('~', '\~', $pattern) . '~';
 
         $result = preg_match($regex, $string, $matches);
@@ -1445,8 +1444,7 @@ if (!function_exists('ereg')) {
 }
 
 if (!function_exists('eregi')) {
-    function eregi(string $pattern, string $string, ?array &$regs = null)
-    {
+    function eregi(string $pattern, string $string, ?array &$regs = null) {
         $regex = '~' . str_replace('~', '\~', $pattern) . '~i';
 
         $result = preg_match($regex, $string, $matches);
