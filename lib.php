@@ -51,6 +51,17 @@ $setup = array();
 $_zb_path = _ZB_PATH;
 $_zb_url = defined('_ZB_URL') ? _ZB_URL : '';
 
+/**
+ * 스킨에서 해당 변수들을 사용할 경우에 대비
+ */
+$PHP_SELF = Request::scriptName();
+$HTTP_HOST = Request::header('Host');
+$HTTP_REFERER = Request::header('Referer');
+$REMOTE_ADDR = Request::clientIp();
+$HTTP_USER_AGENT = Request::header('User-Agent');
+$REQUEST_METHOD = Request::method();
+$REQUEST_URI = Request::uri();
+
 /*******************************************************************************
  * 기본 설정 파일을 읽음
 ******************************************************************************/
@@ -1413,6 +1424,72 @@ function sanitizePathComponent(string $name, string $fallback = 'default'): stri
 if (!function_exists('mb_strlen')) {
     function mb_strlen(string $string, ?string $encoding = null): int {
         return count(preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY));
+    }
+}
+
+if (!function_exists('ereg')) {
+    function ereg(string $pattern, string $string, ?array &$regs = null)
+    {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~';
+
+        $result = preg_match($regex, $string, $matches);
+
+        if ($result !== 1) {
+            $regs = [];
+            return false;
+        }
+
+        $regs = $matches;
+        return strlen($matches[0]);
+    }
+}
+
+if (!function_exists('eregi')) {
+    function eregi(string $pattern, string $string, ?array &$regs = null)
+    {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~i';
+
+        $result = preg_match($regex, $string, $matches);
+
+        if ($result !== 1) {
+            $regs = [];
+            return false;
+        }
+
+        $regs = $matches;
+        return strlen($matches[0]);
+    }
+}
+
+if (!function_exists('ereg_replace')) {
+    function ereg_replace(string $pattern, string $replacement, string $string): ?string {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~';
+
+        return preg_replace($regex, $replacement, $string);
+    }
+}
+
+if (!function_exists('eregi_replace')) {
+    function eregi_replace(string $pattern, string $replacement, string $string): ?string {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~i';
+
+        return preg_replace($regex, $replacement, $string);
+    }
+}
+
+if (!function_exists('split')) {
+    function split(string $pattern, string $string, int $limit = -1) {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~';
+
+        return preg_split($regex, $string, $limit);
+    }
+}
+
+if (!function_exists('spliti')) {
+    function spliti(string $pattern, string $string, int $limit = -1) {
+        $regex = '~' . str_replace('~', '\~', $pattern) . '~i';
+
+        return preg_split($regex, $string, $limit);
     }
 }
 ?>
