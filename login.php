@@ -37,8 +37,8 @@ if ($id) {
     $file = "skin/" . sanitizePathComponent($setup['skinname']) . "/login.php";
 
 } else {
-    if ($group_no) $group = $connect->row("SELECT * FROM {$group_table} WHERE no = ?", [$group_no]);
-    if (!isset($group['no'])) error("지정된 그룹이 존재하지 않습니다");
+    if ($group_no) $group = group_info($group_no);
+    if (!$group['no']) error("지정된 그룹이 존재하지 않습니다");
 }
 
 head();

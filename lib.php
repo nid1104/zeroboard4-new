@@ -288,6 +288,11 @@ function group_info($no) {
     global $group_table, $connect;
     $temp = $connect->row("SELECT * FROM {$group_table} WHERE no = ?", [$no]);
 
+    $temp += array('no' => '', 'name' => '', 'header_url' => '', 'header' => '', 'footer_url' => '', 'footer' => '', 'is_open' => '',
+        'icon' => '', 'use_join' => '', 'use_icon' => '', 'join_return_url' => '', 'member_num' => '', 'board_num' => '', 'join_level' => '',
+        'use_icq' => '', 'use_aol' => '', 'use_msn' => '', 'use_jumin' => '', 'use_comment' => '', 'use_job' => '', 'use_hobby' => '',
+        'use_home_address' => '', 'use_home_tel' => '', 'use_office_address' => '', 'use_office_tel' => '', 'use_handphone' => '', 'use_mailing' => '', 'use_birth' => '', 'use_picture' => '');
+
     return $temp;
 }
 
