@@ -15,10 +15,10 @@ try {
     $connect = new DB($hostname, $user_id, $password, $dbname);
 
 } catch (mysqli_sql_exception $e) {
-    Error("MySQL-DB Connect<br>Error!!! : " . e($e->getMessage()), "");
+    Error("MySQL-DB Connect<br>Error!!! : " . $e->getMessage());
 
 } catch (InvalidArgumentException $e) {
-    Error(e($e->getMessage()), "");
+    Error($e->getMessage());
 }
 
 
