@@ -68,7 +68,7 @@ head(" bgcolor=444444 ");
 	      		<a href="admin/arrangefile.php?zb_csrf_token=<?= Session::csrfToken() ?>" target=_blank onclick="return confirm('첨부파일 정리시에는 첨부파일의 종류에 따라서 시간이 오래 걸릴수 있습니다\n\n실행하시겠습니까?')"><font color=white style=font-size:9pt><b>첨부파일 정리</b></font></a> &nbsp;|&nbsp;
 	      		<a href="admin/delsession.php?zb_csrf_token=<?= Session::csrfToken() ?>" target=_blank onclick="return confirm('세션의 양이 많아지면 전체적인 속도가 느려질수 있습니다.\n\n세션 디렉토리를 정리하시겠습니까?')"><font color=white style=font-size:9pt><b>세션 비우기</b></font></a> &nbsp;|&nbsp;
 	      		<a href=admin/trace.php target=_blank><font color=white style=font-size:9pt><b>게시물 추적</b></font></a> &nbsp;|&nbsp;
-	      		<a href=http://nzeo.com/manual/index.html target=_blank><font color=white style=font-size:9pt><b>매뉴얼</b></font></a>&nbsp;&nbsp;
+	      		<a href=manual/index.html target=_blank><font color=white style=font-size:9pt><b>매뉴얼</b></font></a>&nbsp;&nbsp;
 <?php }?>
 
           </td>
